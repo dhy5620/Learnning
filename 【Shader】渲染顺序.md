@@ -16,7 +16,7 @@
 ​		1. 按照Sorting Layer/Order in Layer 设置的值，越小越优先
 ​		2. 无此属性，等同于 Sorting Layer=default ,Order in Layer=0 参与排序
 ​	2.RenderQueue 越小越优先
-​	3.RenderQueue 相等，
+​	3.RenderQueue 相等，由远及近排序
 
 说明一下：2500是关键值，它是透明跟不透明的分界点，因此我们考虑层级的时候要注意着点：renderqueue > 2500的物体绝对会在renderqueue <= 2500的物体前面，即渲染时renderqueue大的会挡住renderqueue小的，不论它的sortingLayer和sortingOrder怎么设置都是不起作用的。知道了这点，其他的就很好理解了。当两个的RenderQueue都在同一侧时，在SortingLayer高的绝对会在sortingLayer前面，无视renderqueue跟soringOrder，只有在sortingLayer相同的前提下，soringOrder高的会在sortingOrder低的前面，无视renderqueue。当sortingLayer跟sortingOrder相同时，才看renderqueue的高低，高的在前面。
 
