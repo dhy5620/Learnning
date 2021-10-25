@@ -1,3 +1,5 @@
+[Posterize 色调分离 · Shader forge 中文手册（非官方） (gitbooks.io)](https://millionart.gitbooks.io/shader-forge-chinese-manual-unofficial/content/node/arithmetic/posterize.html)
+
 # 1、Artistic
 
 ## Adjustment
