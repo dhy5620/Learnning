@@ -1071,11 +1071,11 @@ main goroutine 结束
 
 #### 无缓冲的channel
 
-![image-20220416153046826](F:\Workspace\Git\Learning\Go\image-20220416153046826.png)
+![image-20220416153046826](image-20220416153046826.png)
 
 #### 有缓冲的channel
 
-![image-20220416153228688](F:\Workspace\Git\Learning\Go\image-20220416153228688.png)
+![image-20220416153228688](image-20220416153228688.png)
 
 channel空间充足，子goroutine直接结束，否则会等待主goroutine取值
 
@@ -1240,4 +1240,114 @@ func main() {
 21
 Main go end
 ```
+
+## GoModules
+
+### 设计目的
+
+1、依赖管理问题
+
+2、淘汰GOPATH模式
+
+3、统一其他依赖管理工具
+
+### GOPATH工作模式
+
+弊端：
+
+​	没有版本控制概念
+
+​	无法同步一致第三方版本号
+
+​	无法制定当前项目引用的第三方版本号
+
+### GoModules工作模式
+
+#### go mod命令
+
+go mod init	生成go.mod文件
+
+go mod download	下载go.mod中指明的依赖
+
+go mod tidy	整理现有依赖
+
+go mod vendor	导出项目所有依赖到vendor目录
+
+go mod graph	查看依赖结构
+
+go mod edit	编辑go.mod文件
+
+go mod verify	校验一个模块是否被篡改过
+
+go mod why	查看为什么需要依赖某模块
+
+#### go mod环境变量
+
+##### GO111MODULE
+
+​	Go modules的开关，1.11版本后Go才有Go modules工作模式。
+
+参数：
+
+​	auto:默认值，有go.mod文件启用
+
+​	on:启用
+
+​	off:不启用
+
+命令：
+
+​	go env -w GO111MODULE=on
+
+##### GOPROXY
+
+​	Go模块代理，拉去模块的镜像站点
+
+默认值：https://proxy.golang.org,direct	国内访问不了，需要设置代理
+
+阿里云：
+
+​	https://mirrors.aliyun.com/goproxy/
+
+七牛云
+
+​	https://goproxy.cn,direct
+
+命令：
+
+​	go env -w GOPROXY=https://goproxy.cn,direct
+
+##### GOSUMDB
+
+​	用于拉去模块版本时保证版本未经过篡改
+
+默认值：sum.golang.org，国内无法访问，可以通过设置GOPROXY来解决
+
+参数：off可以关闭校验，不建议使用
+
+##### GONOPROXY/GONOSUMDB/GOPRIVATE
+
+项目使用了私有模块，GOPRIVATE设置好后会自动覆盖另外两项。在私有库下载可以不进行校验
+
+#### 初始化项目
+
+1、开启Go Modules
+
+​	go env -w GO111MODULE=ON
+
+2、创建项目目录
+
+​	mkdir -p $HOME/xxx/xxx
+
+​	cd $HOME/xxx/xxx
+
+3、执行初始化
+
+​	go mod init xxxx(模块名称)
+
+4、修改模块依赖关系
+
+​	go mod edit -replace=xxxx1=xxxx2
+
+
 
